@@ -1,0 +1,70 @@
+Write a function that returns the youngest common ancestor to the two descendants
+Time --> O(d)
+space --> O(1)
+class AncestralTree {
+  constructor(name){
+    this.name = name
+    this.ancestor = null
+  }
+}
+
+function getYoungestCommonAncestor(topAncestor, nodeOne, nodeTwo){
+  let nodeOneCount = getDecCount(topAncestor, nodeOne)
+  let nodeTwoCount = getDecCount(topAncestor,nodeTwo)
+  
+  if(nodeOneCount > nodeTwoCount){
+    let diff = nodeOneCount - nodeTwoCount
+     nodeOne = moveNode(nodeOne,diff)
+  }else if(nodeTwoCount > nodeOneCount){
+    let diff = nodeTwoCount - nodeOneCount
+    nodeTwo = moveNode(nodeTwo,diff)
+  }
+  
+  while(nodeOne != nodeTwo){
+    nodeOne = nodeOne.ancestor
+    nodeTwo = nodeTwo.ancestor
+  }
+  
+  return nodeOne
+}
+
+
+function getDecCount(topAnc, Cnode){
+  let count = 0 
+  let node = Cnode
+  while(node != topAnc){
+    count++
+    node = node.ancestor
+  }
+  
+  return count
+}
+
+function moveNode(node, count){
+  while(count > 0){
+    node = node.ancestor
+    count--
+  }
+  return node
+}
+
+
+-- Find how are each decendant is from topAncestor
+let decOneCount
+let decTwoCount
+
+if(decOneCount > decTwoCount){
+  let diff = decOneCount - decTwoCount 
+  decentdantOne =  moveDec(decentantOne, diff)
+}else if(decOneCount < decTwoCount){
+  let diff = decTwocount - decOneCount
+  decentdantTwo = moveDec(decentdantTwo, diff)
+}
+
+while(decentdantOne !== decentantTwo){
+  decentantOne = decentantOne.ancestor
+  decentantTwo = decentantTwo.ancestor
+}
+
+return decentantOne
+
